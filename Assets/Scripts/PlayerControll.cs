@@ -27,7 +27,10 @@ public class PlayerControll : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
         animator.SetFloat("Horizontal", Mathf.Abs(horizontalMove));
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        if (horizontalMove < 0 && facingRight)
+        {
+            rb.AddForce(transform.up * jumpforce, ForceMode2D.Impulse);
+        }
+             if (horizontalMove < 0 && facingRight)
         { 
                 Flip();
         }
@@ -35,6 +38,7 @@ public class PlayerControll : MonoBehaviour
         {
                 Flip();
         }
+        
         if (isGrounded == false)
         {
             animator.SetBool("jump", true);
@@ -45,9 +49,7 @@ public class PlayerControll : MonoBehaviour
         }
 
         
-        {
-            rb.AddForce(transform.up * jumpforce, ForceMode2D.Impulse);
-        }
+
     }
     private void FixedUpdate()
     {
